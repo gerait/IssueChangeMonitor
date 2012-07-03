@@ -1,0 +1,8 @@
+/log/*.log
+/log/*.output
+/log/*.pid
+/tmp
+.rvmrc
+
+/*/.DS_Store
+.DS_Store
