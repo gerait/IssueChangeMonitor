@@ -3,11 +3,6 @@ require File.expand_path('../../test_helper', __FILE__)
 class IssueChangeTest < ActiveSupport::TestCase
   fixtures :issues, :users, :members, :issue_changes
   
-  should belong_to(:issue)
-  should belong_to(:member)
-  
-  should validate_presence_of(:issue)
-  should validate_presence_of(:member)
   context "uniqueness" do
     should "check uniqueness" do
       duplicate = IssueChange.new(:member_id => IssueChange.find(1).member_id, :issue_id => IssueChange.find(1).issue_id)
@@ -37,5 +32,4 @@ class IssueChangeTest < ActiveSupport::TestCase
       end
     end
   end
-  
 end
