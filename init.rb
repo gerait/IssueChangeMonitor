@@ -2,9 +2,9 @@
 require 'redmine'
 
 # Patches to the Redmine core.
-require 'issue_change_monitor/patches/users_controllers_patch'
 Rails.configuration.to_prepare do
   Issue.send(:include, IssueChangeMonitor::Patches::IssuePatch) unless Issue.included_modules.include? IssueChangeMonitor::Patches::IssuePatch
+  IssuesController.send(:include, IssueChangeMonitor::Patches::IssuesControllerPatch) unless IssuesController.included_modules.include? IssueChangeMonitor::Patches::IssuesControllerPatch
 end
 
 require 'issue_change_monitor/hooks/view_issues_index_bottom_hook'

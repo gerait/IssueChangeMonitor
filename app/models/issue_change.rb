@@ -10,6 +10,18 @@ class IssueChange < ActiveRecord::Base
   
   scope :with_issue_id, lambda{|issue_id| where(issue_id.present? ? {:issue_id => issue_id} : 'FALSE')}
   scope :with_member_ids, lambda{|member_ids| where(member_ids.present? ? {:member_id => member_ids} : 'FALSE')}
+
+  def self.mark_as_viewed_or_create(user, issue)
+    member = Member.where(:user_id => user.id, :project_id => issue.project_id).first
+    if member
+      issue_change = IssueChange.where({:issue_id => issue.id, :member_id => member.id}).first
+      if issue_change.blank?
+        IssueChange.create({:issue_id => issue.id, :member_id => member.id, :updated => false})
+      else
+        issue_change.update_attribute(:updated, false) if issue_change.updated
+      end
+    end
+  end
   
   def self.change_label_for(user, issue_id)
     label = []
