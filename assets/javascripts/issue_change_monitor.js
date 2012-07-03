@@ -26,7 +26,7 @@ Event.observe(window, 'load',
         new Ajax.Request("/issue_changes/check.json", 
           { asynchronous:true, 
             method: 'get',
-            parameters: {issue_id: "1"},
+            parameters: {issue_id: issue_id},
             evalJSON: true,
             onSuccess:  function(response) {
               var label = response.responseJSON['label'];
