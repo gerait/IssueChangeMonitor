@@ -1,0 +1,3 @@
+.new_issue_change_label, .update_issue_change_label{display:inline!important;padding-right:3px!important;}
+.new_issue_change_label{color: red}
+.update_issue_change_label{color: blue}
