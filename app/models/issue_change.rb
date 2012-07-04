@@ -30,9 +30,9 @@ class IssueChange < ActiveRecord::Base
     if user.present? && issue.present? && member.present? && issue.updated_on >= member.created_on
       issue_change = IssueChange.with_issue_id(issue_id).with_member_ids(user.members).first
       label = if issue_change.blank?
-        ["[New]", 'new_issue_change_label']
+        ["New", 'new_issue_change_label']
       elsif issue_change.updated?
-        ["[Updated]", 'update_issue_change_label']
+        ["Updated", 'update_issue_change_label']
       else
         []
       end

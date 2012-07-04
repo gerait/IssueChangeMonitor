@@ -13,7 +13,7 @@ Event.observe(window, 'load',
               var css_class = response.responseJSON['css_class'];
               if((label != null || label != undefined) && label.length > 0){
                 var link = $(el).down('a')
-                $(link).update(["<span class='", css_class, "'>", label, "</span>", $(link).innerHTML].join(''))
+                $(link).update(["<span class='", css_class, "'>", label, "</span>&nbsp;", $(link).innerHTML].join(''))
               }
             }
           }

@@ -1,3 +1,15 @@
-.new_issue_change_label, .update_issue_change_label{display:inline!important;padding-right:3px!important;}
-.new_issue_change_label{color: red}
-.update_issue_change_label{color: blue}
+.new_issue_change_label, .update_issue_change_label{
+  display: inline!important;
+ /* margin-right: 3px!important;*/
+  padding-right: 2px!important;
+  padding-left: 2px!important;
+  font-size: 10.998px;
+  font-weight: bold;
+  line-height: 12px;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.new_issue_change_label{background-color: #62C462;}
+.update_issue_change_label{background-color: #5BC0DE}

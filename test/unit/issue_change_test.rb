@@ -34,11 +34,11 @@ class IssueChangeTest < ActiveSupport::TestCase
     should "return New if member doesn't view issue before" do
       user = @issue_change.member.user 
       IssueChange.delete_all
-      assert_equal ["[New]", 'new_issue_change_label'], IssueChange.change_label_for(user, @issue_change.issue_id)
+      assert_equal ["New", 'new_issue_change_label'], IssueChange.change_label_for(user, @issue_change.issue_id)
     end
     should "return Updated if issue changed from last view of member" do
       user = @issue_change.member.user 
-      assert_equal ["[Updated]", 'update_issue_change_label'], IssueChange.change_label_for(user, @issue_change.issue_id)
+      assert_equal ["Updated", 'update_issue_change_label'], IssueChange.change_label_for(user, @issue_change.issue_id)
     end
     should "return empty string if issue doesn't changed from last view of member" do
       user = @issue_change.member.user 
