@@ -1,23 +1,3 @@
-// Event.observe(window, 'load',
-//   function() {
-// 
-//     if(typeof(jsToolBar) != "undefined") {
-// 
-//       // SQL toolbar
-//       jsToolBar.prototype.elements.sql = {
-//         type: 'button',
-//         title: 'SQL',
-//         fn: {
-//           wiki: function() { this.encloseLineSelection('<pre><code class="sql">\n', '\n</code></pr e>') }
-//         }
-//       }
-// 
-//       // redraw toolbar to get the new button to show
-//       wikiToolbar.draw();
-//     }
-//   }
-// );
-
 Event.observe(window, 'load',
   function() {
     $$('tr.issue td.subject').each(function(el) {

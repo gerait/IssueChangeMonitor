@@ -1,6 +1,6 @@
 require File.expand_path('../../../../../test_helper', __FILE__)
 
-class JournalePatchTest < ActiveSupport::TestCase
+class JournalPatchTest < ActiveSupport::TestCase
   fixtures :issues, 
            :issue_changes, 
            :projects,
