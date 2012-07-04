@@ -58,4 +58,9 @@ class IssueChange < ActiveRecord::Base
     end
     labels
   end
+  
+  def self.turn_off_tracking_for_user(user, show_issue_change_label)
+    turn_off = user.pref.show_issue_change_labels? && !show_issue_change_label
+    IssueChange.where(:member_id => user.members.map(&:id)).delete_all if turn_off
+  end
 end

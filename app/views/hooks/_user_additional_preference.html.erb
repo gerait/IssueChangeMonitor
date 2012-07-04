@@ -1,0 +1,3 @@
+<%= labelled_fields_for :pref, user.pref do |pref_fields| %>
+<p><%= pref_fields.check_box :show_issue_change_labels, {:checked => user.pref.show_issue_change_labels?, :label => "View New/Updated lables on issues?"} %></p>
+<% end %>

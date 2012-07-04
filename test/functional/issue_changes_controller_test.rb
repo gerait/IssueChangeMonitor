@@ -24,8 +24,11 @@ class IssueChangesControllerTest < ActionController::TestCase
   def test_check_all
     project = Project.find 1
     member = Member.find 1
+    user_preference = UserPreference.new
     labels = {1 => ["[New]", 'new_issue_change_label']}
     Member.any_instance.stubs(:find_by_project_id_and_user_id).returns(member)
+    User.any_instance.stubs(:pref).returns(user_preference)
+    user_preference.stubs(:show_issue_change_labels?).returns(true)
     IssueChange.stubs(:all_change_label_for).returns(labels)
     post :check_all, :format => :js, :issue_ids => [@issue.id], :project_id => project.id
     assert_response :success

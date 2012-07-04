@@ -97,4 +97,16 @@ class IssueChangeTest < ActiveSupport::TestCase
       assert_equal ["Updated", 'update_issue_change_label'], result[updated_issue.id]
     end
   end
+  
+  context "#turn_off_tracking_for_user" do
+    should "remove issue changes if user turn off labels in preferences" do
+      user = @issue_change.member.user
+      user.pref[:show_issue_change_labels] = true
+      user.save!
+      IssueChange.turn_off_tracking_for_user(user, true)
+      assert @issue_change.reload.present?
+      IssueChange.turn_off_tracking_for_user(user, false)
+      assert IssueChange.find_by_id(@issue_change.id).nil?
+    end
+  end
 end
