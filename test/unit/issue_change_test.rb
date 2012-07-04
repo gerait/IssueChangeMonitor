@@ -45,6 +45,15 @@ class IssueChangeTest < ActiveSupport::TestCase
       @issue_change.update_attribute(:updated, false)
       assert_equal [], IssueChange.change_label_for(user, @issue_change.issue_id)
     end
+    should "return empty string if issue updated before user became member of project" do
+      member = @issue_change.member
+      issue = @issue_change.issue
+      user = @issue_change.member.user
+      issue.update_attribute(:updated_on, Time.now - 1.days)
+      member.update_attribute(:created_on, Time.now)
+      IssueChange.delete_all
+      assert_equal [], IssueChange.change_label_for(user, issue.id)
+    end
   end
         
   context "#mark_as_viewed_or_create" do

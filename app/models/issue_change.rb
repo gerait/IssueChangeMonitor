@@ -25,7 +25,9 @@ class IssueChange < ActiveRecord::Base
   
   def self.change_label_for(user, issue_id)
     label = []
-    if user.present?
+    issue = Issue.find_by_id(issue_id)
+    member = Member.where(:user_id => user.id, :project_id => issue.project_id).first if issue
+    if user.present? && issue.present? && member.present? && issue.updated_on >= member.created_on
       issue_change = IssueChange.with_issue_id(issue_id).with_member_ids(user.members).first
       label = if issue_change.blank?
         ["[New]", 'new_issue_change_label']
