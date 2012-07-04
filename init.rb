@@ -4,6 +4,7 @@ require 'redmine'
 # Patches to the Redmine core.
 Rails.configuration.to_prepare do
   Issue.send(:include, IssueChangeMonitor::Patches::IssuePatch) unless Issue.included_modules.include? IssueChangeMonitor::Patches::IssuePatch
+  Journal.send(:include, IssueChangeMonitor::Patches::JournalPatch) unless Journal.included_modules.include? IssueChangeMonitor::Patches::JournalPatch
   IssuesController.send(:include, IssueChangeMonitor::Patches::IssuesControllerPatch) unless IssuesController.included_modules.include? IssueChangeMonitor::Patches::IssuesControllerPatch
 end
 
