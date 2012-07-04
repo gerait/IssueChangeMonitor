@@ -1,0 +1,6 @@
+<% if @issue_changes_labels.present? %>
+  <% @issue_changes_labels.each do |id, label| %>
+    var link = $("issue-<%= id %>").down("td.subject a");
+    $(link).update("<span class='<%= label[1] %>'><%= label[0] %></span>&nbsp;" + $(link).innerHTML);
+  <%end%>
+<%end%>

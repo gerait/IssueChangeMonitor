@@ -74,4 +74,27 @@ class IssueChangeTest < ActiveSupport::TestCase
       assert !IssueChange.last.updated
     end
   end
+  
+  context "#all_change_label_for" do
+    should "prepare issue change label and return labels for issues which older then member created" do
+      Issue.destroy_all
+      IssueChange.destroy_all
+      member = Member.find 1
+      member.update_attribute(:created_on, Time.now - 1.hours)
+      project = member.project
+      
+      new_issue = Issue.generate_for_project!(project)
+      updated_issue = Issue.generate_for_project!(project)
+      not_updated_issue = Issue.generate_for_project!(project)
+      old_issue = Issue.generate_for_project!(project)
+      old_issue.update_attribute(:updated_on, Time.now - 2.hours)
+      IssueChange.create!(:issue => updated_issue, :member => member, :updated => true)
+      IssueChange.create!(:issue => not_updated_issue, :member => member, :updated => false)
+      
+      result = IssueChange.all_change_label_for(member, project.issues.map(&:id))
+      assert_equal 2, result.size
+      assert_equal ["New", 'new_issue_change_label'], result[new_issue.id]
+      assert_equal ["Updated", 'update_issue_change_label'], result[updated_issue.id]
+    end
+  end
 end
