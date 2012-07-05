@@ -13,13 +13,11 @@ class MemberPatchTest < ActiveSupport::TestCase
            :issue_categories,
            :journals,
            :journal_details
-    
-  context "#delete_issue_changes" do
-    should "delete member issue changes records" do
-      @issue_change = IssueChange.find(1)
-      @member = @issue_change.member
-      assert @member.destroy
-      assert IssueChange.find_by_id(1).nil?
-    end 
-  end
+  
+  should "has many issue changes" do
+    issue_change = IssueChange.find(1)
+    member = issue_change.member
+    assert member.respond_to?(:issue_changes)
+    assert_equal [issue_change], member.issue_changes
+  end 
 end

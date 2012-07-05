@@ -1,11 +1,11 @@
 module IssueChangeMonitor
   module Patches
     module IssuePatch
-      
       extend ActiveSupport::Concern
       
       included do      
         unloadable
+        has_many :issue_changes, :dependent => :delete_all
         after_update :update_issue_change
       end
 

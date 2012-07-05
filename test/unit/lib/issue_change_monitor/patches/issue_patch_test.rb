@@ -21,6 +21,13 @@ class IssuePatchTest < ActiveSupport::TestCase
            :queries,
            :repositories,
            :changesets    
+
+  should "has many issue changes" do
+    issue_change = IssueChange.find(1)
+    issue = issue_change.issue
+    assert issue.respond_to?(:issue_changes)
+    assert_equal [issue_change], issue.issue_changes
+  end 
     
   context "after update" do
     context "#update_issue_change" do
@@ -33,4 +40,5 @@ class IssuePatchTest < ActiveSupport::TestCase
       end 
     end
   end
+  
 end
