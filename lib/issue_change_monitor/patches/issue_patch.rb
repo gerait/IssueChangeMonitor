@@ -12,7 +12,10 @@ module IssueChangeMonitor
       protected
         
       def update_issue_change
-        IssueChange.where(:issue_id => self.id).update_all({:updated => true}) if self.changed?
+        begin
+          IssueChange.where(:issue_id => self.id).update_all({:updated => true}) if self.changed?
+        rescue
+        end
       end
     end
   end
