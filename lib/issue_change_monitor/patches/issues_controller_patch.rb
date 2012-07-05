@@ -10,7 +10,7 @@ module IssueChangeMonitor
 
       protected
       def update_issue_change
-        IssueChange.mark_as_viewed_or_create(User.current, @issue) if User.current.logged? && User.current.pref.show_issue_change_labels? && @issue.present?
+        IssueChange.mark_as_viewed_or_create(User.current, @issue) if User.current.logged? && @issue.present?
       end
     end
   end

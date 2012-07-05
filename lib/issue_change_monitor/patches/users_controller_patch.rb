@@ -20,7 +20,6 @@ module IssueChangeMonitor
 
       def update_with_ext
         show_issue_change_labels = (params[:show_issue_change_labels] == '1')
-        IssueChange.turn_off_tracking_for_user(@user, show_issue_change_labels)
         @user.pref.show_issue_change_labels = show_issue_change_labels
         update_without_ext
       end

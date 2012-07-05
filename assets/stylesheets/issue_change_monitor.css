@@ -4,12 +4,15 @@
   padding-right: 2px!important;
   padding-left: 2px!important;
   font-size: 10.998px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 12px;
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   white-space: nowrap;
   vertical-align: baseline;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .new_issue_change_label{background-color: #62C462;}
 .update_issue_change_label{background-color: #5BC0DE}

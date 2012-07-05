@@ -45,20 +45,22 @@ class IssueChange < ActiveRecord::Base
     labels = {}
     passed_ids = issue_ids.reject(&:blank?)
     if passed_ids.present? && member.present?
-      ids = Issue.where(["id IN(?) AND updated_on >= ?", passed_ids, member.created_on]).map(&:id)
-      issue_changes = IssueChange.with_issue_id(ids).with_member_id(member).index_by(&:issue_id)
-      ids.each do |id|
-        change = issue_changes[id]
+      issues = Issue.where(["id IN(?) AND updated_on >= ?", passed_ids, member.created_on])
+      issue_changes = IssueChange.with_issue_id(issues.map(&:id)).with_member_id(member).index_by(&:issue_id)
+      issues.each do |issue|
+        change = issue_changes[issue.id]
         if change.blank?
-          labels[id] = ["New", 'new_issue_change_label']
+          #Old issues, which created before member created mark as Updated
+          labels[issue.id] = issue.created_on >= member.created_on ? ["New", 'new_issue_change_label'] : ["Updated", 'update_issue_change_label']
         elsif change.updated?
-          labels[id] = ["Updated", 'update_issue_change_label']
+          labels[issue.id] = ["Updated", 'update_issue_change_label']
         end
       end
     end
     labels
   end
   
+  #Not use now
   def self.turn_off_tracking_for_user(user, show_issue_change_label)
     turn_off = user.pref.show_issue_change_labels? && !show_issue_change_label
     IssueChange.where(:member_id => user.members.map(&:id)).delete_all if turn_off
