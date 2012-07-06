@@ -1,19 +1,19 @@
 Event.observe(window, 'load',
   function() {
-    //Check all by one requets
+    // Check all by one requets
     // if($$('tr.issue td.subject') != undefined){
-    //       var project_id = $("issue_change_project_id").getValue();
-    //       var issue_ids = $$('tr.issue').collect(function(el){ return "issue_ids[]=" + $(el).id.replace(/[^0-9]/g, ''); }).join(";")
-    //       if(issue_ids.length > 0){
-    //         new Ajax.Request("/issue_changes/check_all.js", 
-    //           { asynchronous:true, 
-    //             method: 'post',
-    //             parameters: "project_id=" + project_id + ";" + issue_ids
-    //           }
-    //         );
-    //       }
+    //     var project_id = $("issue_change_project_id").getValue();
+    //     var issue_ids = $$('tr.issue').collect(function(el){ return "issue_ids[]=" + $(el).id.replace(/[^0-9]/g, ''); }).join(";")
+    //     if(issue_ids.length > 0){
+    //       new Ajax.Request("/issue_changes/check_all.js", 
+    //         { asynchronous:true, 
+    //           method: 'post',
+    //           parameters: "project_id=" + project_id + ";" + issue_ids
+    //         }
+    //       );
     //     }
-    
+    //   }
+  
     // For separate request per each issue
     $$('tr.issue td.subject').each(function(el) {
       var issue_id = $(el).up('tr.issue').id.replace(/[^0-9]/g, '')

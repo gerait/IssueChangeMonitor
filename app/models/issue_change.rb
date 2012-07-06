@@ -61,6 +61,28 @@ class IssueChange < ActiveRecord::Base
     labels
   end
   
+  def self.sql_all_change_label_for(user, issue_ids)
+    labels = {}
+    passed_ids = issue_ids.reject(&:blank?)
+    if passed_ids.present? && user.present?
+      changes = Issue.find_by_sql(%Q!
+          SELECT IF(issue_changes.id IS NULL, 
+                    IF(issues.created_on >= members.created_on, "New", "Updated"), 
+                    IF(issue_changes.updated, "Updated", NULL)) as label, 
+                  issues.id
+          FROM issues
+          INNER JOIN projects ON projects.id = issues.project_id 
+          INNER JOIN members ON projects.id = members.project_id
+          LEFT JOIN issue_changes ON issue_changes.issue_id = issues.id AND issue_changes.member_id = members.id
+          WHERE issues.updated_on >= members.created_on AND members.user_id = #{user.id} AND issues.id IN(#{passed_ids.join(",")})
+        !)
+      changes.each do |c|
+        labels[c.id] = (c.label == "New" ? ["New", 'new_issue_change_label'] : ["Updated", 'update_issue_change_label']) if c.label.present?
+      end
+    end
+    labels
+  end
+  
   #Not use now
   def self.turn_off_tracking_for_user(user, show_issue_change_label)
     turn_off = user.pref.show_issue_change_labels? && !show_issue_change_label

@@ -19,6 +19,10 @@ class IssueChangesController < ApplicationController
       member = Member.find_by_project_id_and_user_id(project.id, User.current.id) 
       @issue_changes_labels = IssueChange.all_change_label_for(member, params[:issue_ids])
     end
+    
+    #Through direct sql
+    #@issue_changes_labels = IssueChange.sql_all_change_label_for(User.current, params[:issue_ids])
+        
     respond_to do |format|
       format.js { render :layout => false }
     end

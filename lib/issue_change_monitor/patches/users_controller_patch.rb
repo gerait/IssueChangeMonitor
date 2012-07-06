@@ -13,13 +13,13 @@ module IssueChangeMonitor
       def create_with_ext
         create_without_ext
         unless @user.id.nil?
-          @user.pref.show_issue_change_labels = (params[:show_issue_change_labels] == '1')
+          @user.pref.show_issue_change_labels = (params[:pref] && params[:pref][:show_issue_change_labels] == '1')
           @user.pref.save
         end
       end
 
       def update_with_ext
-        show_issue_change_labels = (params[:show_issue_change_labels] == '1')
+        show_issue_change_labels = (params[:pref] && params[:pref][:show_issue_change_labels] == '1')
         @user.pref.show_issue_change_labels = show_issue_change_labels
         update_without_ext
       end
