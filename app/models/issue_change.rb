@@ -29,9 +29,10 @@ class IssueChange < ActiveRecord::Base
     issue = Issue.find_by_id(issue_id)
     member = Member.where(:user_id => user.id, :project_id => issue.project_id).first if issue
     if user.present? && issue.present? && member.present? && issue.updated_on >= member.created_on
-      issue_change = IssueChange.with_issue_id(issue_id).with_member_id(user.members).first
+      issue_change = IssueChange.with_issue_id(issue_id).with_member_id(member.id).first
       label = if issue_change.blank?
-        ["New", 'new_issue_change_label']
+        #Old issues, which created before member created mark as Updated
+        issue.created_on >= member.created_on ? ["New", 'new_issue_change_label'] : ["Updated", 'update_issue_change_label']
       elsif issue_change.updated?
         ["Updated", 'update_issue_change_label']
       else
