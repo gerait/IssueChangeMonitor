@@ -46,7 +46,7 @@ class IssueChange < ActiveRecord::Base
     passed_ids = issue_ids.reject(&:blank?)
     if passed_ids.present? && member.present?
       issues = Issue.where(["id IN(?) AND updated_on >= ?", passed_ids, member.created_on])
-      issue_changes = IssueChange.with_issue_id(issues.map(&:id)).with_member_id(member).index_by(&:issue_id)
+      issue_changes = IssueChange.with_issue_id(issues.map(&:id)).with_member_id(member.id).index_by(&:issue_id)
       issues.each do |issue|
         change = issue_changes[issue.id]
         if change.blank?

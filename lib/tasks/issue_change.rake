@@ -7,7 +7,7 @@ namespace :issue_change_monitor do
       transaction_count = 0
       Project.active.each do |project|
         members = project.members
-        project.issues.find_each do |issue|
+        project.issues.includes(:status).where(["#{IssueStatus.table_name}.is_closed = ?", false]).find_each do |issue|
           members.each do |member|
             if transaction_count == 0
               IssueChange.connection.begin_db_transaction
