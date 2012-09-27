@@ -13,7 +13,10 @@ module IssueChangeMonitor
         
       def update_issue_change
         begin
-          IssueChange.where(:issue_id => self.journalized.id).update_all({:updated => true}) if self.changed? && self.journalized.is_a?(Issue)
+          if self.changed? && self.journalized.is_a?(Issue)
+            IssueChange.where(:issue_id => self.journalized.id).update_all({:updated => true}) 
+            IssueChange.mark_as_viewed_or_create(self.user, self.journalized)
+          end
         rescue
         end
       end

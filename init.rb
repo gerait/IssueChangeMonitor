@@ -14,6 +14,7 @@ end
 
 require 'issue_change_monitor/hooks/view_issues_index_bottom_hook'
 require 'issue_change_monitor/hooks/view_user_preference_hook'
+require 'issue_change_monitor/hooks/controller_issues_edit_after_save_hook'
 
 Redmine::Plugin.register :issue_change_monitor do
   name 'Issue Change Monitor plugin'
