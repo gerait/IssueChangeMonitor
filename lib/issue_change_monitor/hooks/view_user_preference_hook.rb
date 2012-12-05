@@ -4,21 +4,21 @@ module IssueChangeMonitor
        def view_my_account(context)
          add_show_issue_change_labels_field(context)
        end
-       
+
        def view_users_form(context)
          add_show_issue_change_labels_field(context)
        end
-       
+
        protected
-       
+
        def add_show_issue_change_labels_field(context)
          field = context[:hook_caller].send(:render, :partial => 'hooks/user_additional_preference', :locals => {:user => context[:user]})
           javascript_tag(%Q@
-            Event.observe(window, 'load',
+            $(document).ready(
               function() {
-                var el = $$(".splitcontentright .tabular")[0];
+                var el = $(".splitcontentright .tabular:first");
                 if(el != undefined){
-                  el.insert('#{escape_javascript(field)}'); 
+                  el.append('#{escape_javascript(field)}');
                 }
               });
           @)
