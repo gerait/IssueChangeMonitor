@@ -1,3 +1,4 @@
 = issue_change_monitor
 
-Description goes here
+Plugin adds small lables "New"/"Updated" near title of Issue in issues list.
+Now in list of issues it is very clear to see what issues were update from time you have seens it before, and what issues are newly created that you have not seen before.
