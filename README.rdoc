@@ -7,12 +7,12 @@ Now in a list of issues it is very easy to see which issues were updated since y
 
 To install plugin:
 
-* Clone source code to plugins directory:
+# Clone source code to plugins directory:
 
   git clone git://github.com/gerait/IssueChangeMonitor plugins/issue_change_monitor
 
-* Migrate and copy assets:
+# Migrate and copy assets:
 
   bundle exec rake redmine:plugins
 
-* Restart Redmine.
+# Restart Redmine.
