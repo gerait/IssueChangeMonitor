@@ -1,4 +1,18 @@
-= issue_change_monitor
+= Issue Change Monitor plugin
 
-Plugin adds small lables "New"/"Updated" near title of Issue in issues list.
-Now in list of issues it is very clear to see what issues were update from time you have seen them before, and what issues are newly created that you have not seen before.
+Plugin adds small lables "New"/"Updated" near the title of each Issue in a issues list.
+Now in a list of issues it is very easy to see which issues were updated since you have seen them before. And which issues you have not seen before.
+
+== Install the plugin
+
+To install plugin:
+
+Clone source code to plugins directory:
+
+  git clone git://github.com/gerait/IssueChangeMonitor plugins/issue_change_monitor
+
+Migrate and copy assets:
+
+  bundle exec rake redmine:plugins
+
+Restart Redmine.
